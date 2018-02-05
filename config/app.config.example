@@ -1,0 +1,12 @@
+[log]
+level = 1
+adapter = file
+
+[db]
+host = 127.0.0.1
+port = 3306
+user = root
+password = 654321
+name = chain_book
+timezone = Asia/Shanghai
+prefix = bo_
