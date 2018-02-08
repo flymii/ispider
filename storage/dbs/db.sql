@@ -52,7 +52,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 -- MySQL Workbench Synchronization
--- Generated: 2018-02-06 16:50
+-- Generated: 2018-02-07 16:50
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
