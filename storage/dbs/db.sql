@@ -3,7 +3,8 @@
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
--- Author: zzc
+-- Author: Chain
+-- comment: Create
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -43,6 +44,29 @@ CREATE TABLE IF NOT EXISTS `chain_book`.`url` (
   UNIQUE INDEX `url_UNIQUE` (`url` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+-- MySQL Workbench Synchronization
+-- Generated: 2018-02-06 16:50
+-- Model: New Model
+-- Version: 1.0
+-- Project: Name of the project
+-- Author: chain
+-- Comment: Update book
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+ALTER TABLE `chain_book`.`book` 
+ADD COLUMN `status` INT(11) NULL DEFAULT NULL COMMENT '0 - 已完结；1 - 连载中' AFTER `image`,
+ADD COLUMN `from` VARCHAR(100) NULL DEFAULT NULL COMMENT '源站' AFTER `status`,
+ADD COLUMN `url` VARCHAR(100) NULL DEFAULT NULL COMMENT '源站地址' AFTER `from`;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

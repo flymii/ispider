@@ -10,6 +10,9 @@ type Book struct{
 	Name string
 	Author string
 	Image string
+	Status int
+	From string
+	Url string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -25,4 +28,18 @@ func GetBookByName(name string)(*Book, error){
 		return nil, err
 	}
 	return book, nil
+}
+
+func GetBookList(filters ...interface{})([]*Book, int64){
+	books := make([]*Book, 0)
+	query := orm.NewOrm().QueryTable("book")
+	if len(filters) > 0{
+		l := len(filters)
+        for i := 0; i < l; i += 2{
+			query = query.Filter(filters[i].(string), filters[i + 1])
+		}
+	}
+	total, _ := query.Count()
+	query.OrderBy("id").All(&books)
+	return books, total
 }

@@ -10,3 +10,6 @@ password = 654321
 name = chain_book
 timezone = Asia/Shanghai
 prefix = bo_
+
+[task]
+spec = 0 */5 * * * ?  //每5分钟执行一次
