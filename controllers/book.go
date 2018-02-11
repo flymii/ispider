@@ -8,11 +8,14 @@ type BookController struct{
     BaseController
 }
 
+//获取小说列表
 func (self *BookController) GetAll(){
 	books, _ := models.GetBookList()
 	self.toJson(MSG_OK, "成功", books)
 }
 
+// 分页获取指定小说的章节列表, 每页10条
+// url参数：bookid => 小说id; page => 页码
 func (self *BookController) GetChapters(){
 	bookid, err := self.GetInt("bookid")
 	if err != nil{
@@ -26,6 +29,8 @@ func (self *BookController) GetChapters(){
 	self.toJson(MSG_OK, "success", chapters)
 }
 
+// 获取指定章节详细信息
+// url参数: id => 章节id
 func (self *BookController) GetChapter(){
 	id, err := self.GetInt("id")
     if err != nil{

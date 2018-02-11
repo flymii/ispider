@@ -2,22 +2,17 @@ package routers
 
 import(
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/context"
-	"github.com/Chain-Zhang/igo/ilog"
 	"ispider/controllers"
 )
 
 func init() {
 	ns := beego.NewNamespace("/v1",
-		beego.NSCond(func(ctx *context.Context) bool {
-			ilog.AppLog.Info("domain: ", ctx.Input.Domain())
-			ilog.AppLog.Info("url: ",ctx.Input.URL())
-			ilog.AppLog.Info("uri: ",ctx.Input.URI())
-			return true
-		}),
 		beego.NSNamespace("/book",
+			// /v1/book  获取小说列表
 			beego.NSRouter("/", &controllers.BookController{}, "get:GetAll"),
+			// /v1/book/getchapters?bookid=xxx&page=1  获取小说章节列表
 			beego.NSRouter("/getchapters", &controllers.BookController{}, "get:GetChapters"),
+			// /v1/book/chapter?id=xxx  获取章节内容
 			beego.NSRouter("/chapter", &controllers.BookController{}, "get:GetChapter"),
 		),
 	)
