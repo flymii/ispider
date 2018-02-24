@@ -9,39 +9,39 @@
     <title>Dashboard Template for Bootstrap</title>
 
     <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/css/sweetalert.css" rel="stylesheet">
     <link href="../../static/css/app.css" rel="stylesheet">
   </head>
 
   <body>
-        <div class="navbar navbar-duomi navbar-static-top  nav-header" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <i class="navbar-brand" href="#" id="logo">Chain Book Admin</i>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 border-bottom box-shadow nav-header">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Chain Book Admin</h5>
+        <a class="btn btn-outline-primary" href="javascript:;">Sign out</a>
+      </div>
+        <div class="container-fluid full-height">
+            <div class="row full-height" >
                 <div class="col-md-2 col-sm-3 list-group nav-box">
                     <nav class="nav flex-column">
                         <a class="nav-link nav-item" href="/admin"><i data-feather="home"></i>&nbsp;&nbsp;Home</a>
-                        <a class="nav-link nav-item" href="/admin"><i data-feather="package"></i>&nbsp;&nbsp;App</a>
-                        <a class="nav-link nav-item" href="#"><i data-feather="users"></i>&nbsp;&nbsp;Users</a>
-                        <a class="nav-link nav-item" href="#"><i data-feather="anchor"></i>&nbsp;&nbsp;Interface</a>
+                        <a class="nav-link nav-item" href="#"><i data-feather="package"></i>&nbsp;&nbsp;App</a>
+                        <a class="nav-link nav-item" href="/admin/users"><i data-feather="users"></i>&nbsp;&nbsp;Users</a>
+                        <a class="nav-link nav-item" href="#"><i data-feather="anchor"></i>&nbsp;&nbsp;Api</a>
                     </nav>
                 </div>
-                <div class="col-md-10 col-sm-9">
+                <main role="main" class="col-md-10 col-sm-9 pt-3 px-4">
                     {{.LayoutContent}}
-                </div>
+                </main>
             </div>
         </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
     
 
     <script src="../../static/js/bootstrap.js"></script>
+    <script src="../../static/js/sweetalert.min.js"></script>
+    <script src="../../static/js/app.js"></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>

@@ -22,6 +22,14 @@ func init() {
 	nsAdmin := beego.NewNamespace("/admin",
 		beego.NSRouter("/", &admin.IndexController{},"get:Index"),
 		beego.NSRouter("/login", &admin.LoginController{},"get:Login"),
+		beego.NSRouter("/users", &admin.UserController{},"get:Users"),
+
+		
+		beego.NSNamespace("/service",
+			beego.NSRouter("/user_add", &admin.UserController{},"post:AjaxAdd"),
+			beego.NSRouter("/user_delete", &admin.UserController{},"post:AjaxDelete"),
+		),
 	)
+
 	beego.AddNamespace(nsAdmin)
 }

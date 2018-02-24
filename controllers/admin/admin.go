@@ -6,6 +6,12 @@ import(
 	"strings"
 )
 
+// json 返回错误码
+const (
+	MSG_OK  = 0   // 成功
+	MSG_ERR = -1  // 失败
+)
+
 type AdminController struct{
 	controllers.BaseController
 	controllerName string
@@ -20,6 +26,10 @@ func (self *AdminController) Prepare(){
 	self.actionName = strings.ToLower(actionName)
 	self.Data["cur_controller"] = self.controllerName
 	self.Data["cur_action"] = self.actionName
+}
+
+func (self *AdminController) auth(){
+
 }
 
 func (self *AdminController) display(tpl ...string){
