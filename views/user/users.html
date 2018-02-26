@@ -1,6 +1,6 @@
 <div class="card">
     <h3 class="card-header">Users</h3>
-    <div class="card-body">
+    <div class="card-body pt-3 px-4">
         <div class="p-3 px-md-4 mb-3">
             <button type="button" class="btn btn-primary" onclick="user_add()">Add New</button>
         </div>
@@ -9,7 +9,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">用户名</th>
-                        <th scope="col">用户级别</th>
+                        <th scope="col">用户角色</th>
                         <th scope="col">状态</th>
                         <th scope="col">操作</th>
                     </tr>
@@ -38,16 +38,16 @@
                         </td>
                         <td>
                             {{if eq $user.Status 1}}
-                            <a title="停用" href="javascript:;" onclick="user_disable({{$user.Id}})" class="mr-2" style="text-decoration:none">
+                            <a title="停用" href="javascript:;" onclick='user_disable({{$user.Id}})' class="mr-2" style="text-decoration:none">
                                 <i data-feather="eye-off"></i>
                             </a>
                             {{else}}
-                            <a title="启用" href="javascript:;" onclick="user_enable({{$user.Id}})" class="mr-2" style="text-decoration:none">
+                            <a title="启用" href="javascript:;" onclick='user_enable({{$user.Id}})' class="mr-2" style="text-decoration:none">
                                 <i data-feather="eye"></i>
                             </a>
                             
                             {{end}}
-                            <a title="编辑" href="javascript:;" onclick="user_edit({{$user.Id}})" class="mx-2" style="text-decoration:none">
+                            <a title="编辑" href="/admin/users/edit?id={{$user.Id}}" class="mx-2" style="text-decoration:none">
                                 <i data-feather="edit-3"></i>
                             </a> 
                             <a title="删除" href="javascript:;" onclick="user_delete({{$user.Id}})" class="mx-2" style="text-decoration:none">

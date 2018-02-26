@@ -10,7 +10,7 @@ function user_add(){
             inputPlaceholder: "user name" 
         },
         function(inputValue){ 
-            if (inputValue === false) returnfalse; 
+            if (inputValue === false) return false; 
             
             if (inputValue === "") { 
                 swal.showInputError("Please input user name！");
@@ -41,8 +41,29 @@ function user_add(){
     );
 }
 
-function user_edit(id){
-    swal("编辑用户：" + id)
+function user_edit(){
+    var level = $('select[name=level]').val();
+    var id = $('input[name=id]').val();
+    $.ajax({
+        url:'/admin/service/user_edit',
+        dataType:'json',
+        type:'POST',
+        cache:false,
+        data:{id:id, level:level},
+        success:function(data){
+            if(data == null){
+                swal("修改失败", "服务器错误", "error");
+                return;
+            }
+            if (data.status != 0){
+                swal("修改失败", data.msg, "error");
+                return;
+            }
+            swal({title:"修改成功!",text: data.msg, type:"success" }, function(){
+                window.location.href = document.referrer
+            });
+        }
+    })
 }
 
 function user_delete(id){
@@ -80,7 +101,37 @@ function user_delete(id){
 }
 
 function user_enable(id){
-    swal("启用用户：" + id)
+    swal({ 
+        title: "确定启用该用户吗？", 
+        text: "", 
+        type: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定启用！", 
+        closeOnConfirm: false
+    },
+    function(){
+        $.ajax({
+            url:'/admin/service/user_enable',
+            dataType:'json',
+            type:'POST',
+            cache:false,
+            data:{id:id},
+            success:function(data){
+                if(data == null){
+                    swal("启用失败", "服务器错误", "error");
+                    return;
+                }
+                if (data.status != 0){
+                    swal("启用失败", data.msg, "error");
+                    return;
+                }
+                swal({title:"启用成功!",text: data.msg, type:"success" }, function(){
+                    location.reload();
+                });
+            }
+        })
+    });
 }
 
 function user_disable(id){

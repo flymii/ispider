@@ -23,11 +23,15 @@ func init() {
 		beego.NSRouter("/", &admin.IndexController{},"get:Index"),
 		beego.NSRouter("/login", &admin.LoginController{},"get:Login"),
 		beego.NSRouter("/users", &admin.UserController{},"get:Users"),
+		beego.NSRouter("/users/edit", &admin.UserController{},"get:Edit"),
 
 		
 		beego.NSNamespace("/service",
 			beego.NSRouter("/user_add", &admin.UserController{},"post:AjaxAdd"),
 			beego.NSRouter("/user_delete", &admin.UserController{},"post:AjaxDelete"),
+			beego.NSRouter("/user_enable", &admin.UserController{},"post:AjaxEnable"),
+			beego.NSRouter("/user_disable", &admin.UserController{},"post:AjaxDisable"),
+			beego.NSRouter("/user_edit", &admin.UserController{},"post:AjaxEdit"),
 		),
 	)
 

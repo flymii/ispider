@@ -32,6 +32,13 @@ func (self *UserController)Users(){
 	self.display()
 }
 
+func (self *UserController)Edit(){
+	id, _ := self.GetInt("id")
+	user, _ := models.GetUserById(id)
+	self.Data["user"] = user
+	self.display()
+}
+
 func (self *UserController)AjaxAdd(){
 	username := self.GetString("username")
 	if len(username) < 1{
@@ -70,4 +77,62 @@ func (self *UserController)AjaxDelete(){
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	self.ToJson(MSG_OK, "用户【"+user.Username+"】已删除", nil)
+}
+
+func (self *UserController)AjaxEnable(){
+	id, err := self.GetInt("id")
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+	user, err := models.GetUserById(id)
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+	user.Status = 1
+	user.UpdatedAt = time.Now()
+	err = user.Update()
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+	self.ToJson(MSG_OK, "用户【"+user.Username+"】已启用", nil)
+}
+
+func (self *UserController)AjaxDisable(){
+	id, err := self.GetInt("id")
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+	user, err := models.GetUserById(id)
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+	user.Status = 0
+	user.UpdatedAt = time.Now()
+	err = user.Update()
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+	self.ToJson(MSG_OK, "用户【"+user.Username+"】已禁用", nil)
+}
+
+func (self *UserController)AjaxEdit(){
+	id, err := self.GetInt("id")
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+	level, err := self.GetInt("level")
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+	user, err := models.GetUserById(id)
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+	user.Level = level
+	user.UpdatedAt = time.Now()
+	err = user.Update()
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+	self.ToJson(MSG_OK, "用户【"+user.Username+"】已修改成功", nil)
 }
