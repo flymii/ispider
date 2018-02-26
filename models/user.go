@@ -54,3 +54,12 @@ func GetUserById(id int)(*User, error){
 	}
 	return user, nil
 }
+
+func GetUserByName(name string)(*User, error){
+	user := new(User)
+	err := orm.NewOrm().QueryTable(user.TableName()).Filter("username", name).One(user)
+    if err != nil{
+		return nil, err
+	}
+	return user, nil
+}

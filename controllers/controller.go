@@ -1,6 +1,7 @@
 package controllers
 
 import(
+	"strings"
 	"github.com/astaxie/beego"
 )
 
@@ -19,4 +20,10 @@ func (self *BaseController) ToJson (msgno int, msg string, data interface{}){
 	out["data"] = data
 	self.Data["json"] = out
 	self.ServeJSON()
+}
+
+//获取用户IP地址
+func (self *BaseController) GetClientIp() string {
+	s := strings.Split(self.Ctx.Request.RemoteAddr, ":")
+	return s[0]
 }

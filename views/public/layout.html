@@ -15,17 +15,29 @@
 
   <body>
     <div class="d-flex flex-column flex-md-row align-items-center p-3 border-bottom box-shadow nav-header">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Chain Book Admin</h5>
-        <a class="btn btn-outline-primary" href="javascript:;">Sign out</a>
+        <h3 class="my-0 mr-md-auto font-weight-normal">Chain Book Admin</h3>
+        <ul class="nav justify-content-end" style="margin-right: 5rem">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    {{.login_username}}
+                    <img class="circle-img" src="../../static/images/avatar.jpg">
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Change Password</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Login Out</a>
+                </div>
+            </li>
+        </ul>
       </div>
         <div class="container-fluid full-height">
             <div class="row full-height" >
                 <div class="col-md-2 col-sm-3 list-group nav-box">
                     <nav class="nav flex-column">
-                        <a class="nav-link nav-item" href="/admin"><i data-feather="home"></i>&nbsp;&nbsp;Home</a>
-                        <a class="nav-link nav-item" href="#"><i data-feather="package"></i>&nbsp;&nbsp;App</a>
-                        <a class="nav-link nav-item" href="/admin/users"><i data-feather="users"></i>&nbsp;&nbsp;Users</a>
-                        <a class="nav-link nav-item" href="#"><i data-feather="anchor"></i>&nbsp;&nbsp;Api</a>
+                        <a class="nav-link nav-item-left" href="/admin"><i data-feather="home"></i>&nbsp;&nbsp;Home</a>
+                        <a class="nav-link nav-item-left" href="#"><i data-feather="package"></i>&nbsp;&nbsp;App</a>
+                        <a class="nav-link nav-item-left" href="/admin/users"><i data-feather="users"></i>&nbsp;&nbsp;Users</a>
+                        <a class="nav-link nav-item-left" href="#"><i data-feather="anchor"></i>&nbsp;&nbsp;Api</a>
                     </nav>
                 </div>
                 <main role="main" class="col-md-10 col-sm-9 pt-3 px-4">
