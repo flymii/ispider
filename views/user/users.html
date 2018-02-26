@@ -38,11 +38,11 @@
                         </td>
                         <td>
                             {{if eq $user.Status 1}}
-                            <a title="停用" href="javascript:;" onclick='user_disable({{$user.Id}})' class="mr-2" style="text-decoration:none">
+                            <a title="停用" href="javascript:;" onclick="user_disable('{{$user.Id}}')" class="mr-2" style="text-decoration:none">
                                 <i data-feather="eye-off"></i>
                             </a>
                             {{else}}
-                            <a title="启用" href="javascript:;" onclick='user_enable({{$user.Id}})' class="mr-2" style="text-decoration:none">
+                            <a title="启用" href="javascript:;" onclick="user_enable('{{$user.Id}}')" class="mr-2" style="text-decoration:none">
                                 <i data-feather="eye"></i>
                             </a>
                             
@@ -50,7 +50,7 @@
                             <a title="编辑" href="/admin/users/edit?id={{$user.Id}}" class="mx-2" style="text-decoration:none">
                                 <i data-feather="edit-3"></i>
                             </a> 
-                            <a title="删除" href="javascript:;" onclick="user_delete({{$user.Id}})" class="mx-2" style="text-decoration:none">
+                            <a title="删除" href="javascript:;" onclick="user_delete('{{$user.Id}}')" class="mx-2" style="text-decoration:none">
                                 <i data-feather="delete"></i>
                             </a>
                         </td>
