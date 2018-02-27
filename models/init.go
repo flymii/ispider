@@ -24,7 +24,7 @@ func init(){
 		dsn = dsn + "&loc=" + url.QueryEscape(timezone)
 	}
 	orm.RegisterDataBase("default","mysql",dsn)
-	orm.RegisterModel(new(Book), new(Chapter), new(Url), new(User))
+	orm.RegisterModel(new(Book), new(Chapter), new(Url), new(User), new(App))
 }
 
 func TableName(name string) string {

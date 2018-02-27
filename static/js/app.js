@@ -214,3 +214,30 @@ function user_disable(id){
     });
 }
 /*------users end------*/
+
+/* -------myapps start------- */
+function app_add(){
+    var appname = $('input[name=appname]').val();
+    var desc = $('input[name=desc]').val()
+    $.ajax({
+        url:'/admin/service/app_add',
+        dataType:'json',
+        type:'POST',
+        cache:false,
+        data:{appname:appname, desc:desc},
+        success:function(data){
+            if(data == null){
+                swal("添加失败", "服务器错误", "error");
+                return;
+            }
+            if (data.status != 0){
+                swal("添加失败", data.msg, "error");
+                return;
+            }
+            swal({title:"添加成功!",text: "添加应用:【" + appname + "】成功!", type:"success" }, function(){
+                window.location.href = document.referrer
+            });
+        }
+    })
+}
+/* -------myapps end------- */
