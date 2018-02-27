@@ -36,7 +36,7 @@ func (self *LoginController) AjaxLogin(){
 }
 
 //登出
-func (self *LoginController) LoginOut() {
+func (self *LoginController) AjaxLoginOut() {
 	self.Ctx.SetCookie("auth", "")
 	self.ToJson(MSG_OK,"退出成功", nil)
 }

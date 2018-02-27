@@ -52,6 +52,8 @@ func (self *AdminController) auth() bool{
 			if err == nil && authkey == util.Md5(self.GetClientIp() + "|" + user.Password, false){
 				self.login_user = user
 				return true
+			}else{
+				self.login_userId = 0
 			}
 		}
 	}

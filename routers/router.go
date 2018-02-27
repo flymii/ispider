@@ -24,15 +24,18 @@ func init() {
 		beego.NSRouter("/login", &admin.LoginController{},"get:Login"),
 		beego.NSRouter("/users", &admin.UserController{},"get:Users"),
 		beego.NSRouter("/users/edit", &admin.UserController{},"get:Edit"),
+		beego.NSRouter("/users/changepwd", &admin.UserController{},"get:ChangePwd"),
 
 		
 		beego.NSNamespace("/service",
 			beego.NSRouter("/login", &admin.LoginController{},"post:AjaxLogin"),
+			beego.NSRouter("/loginout", &admin.LoginController{},"post:AjaxLoginOut"),
 			beego.NSRouter("/user_add", &admin.UserController{},"post:AjaxAdd"),
 			beego.NSRouter("/user_delete", &admin.UserController{},"post:AjaxDelete"),
 			beego.NSRouter("/user_enable", &admin.UserController{},"post:AjaxEnable"),
 			beego.NSRouter("/user_disable", &admin.UserController{},"post:AjaxDisable"),
 			beego.NSRouter("/user_edit", &admin.UserController{},"post:AjaxEdit"),
+			beego.NSRouter("/password_change", &admin.UserController{},"post:AjaxChangePwd"),
 		),
 	)
 	beego.AddNamespace(nsAdmin)

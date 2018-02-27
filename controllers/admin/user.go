@@ -5,8 +5,10 @@ import(
 
 	"github.com/Chain-Zhang/igo/util"
 	"github.com/astaxie/beego/utils/pagination"
+	"github.com/astaxie/beego/logs"
 
 	"time"
+	"strconv"
 )
 
 type UserController struct{
@@ -36,6 +38,10 @@ func (self *UserController)Edit(){
 	id, _ := self.GetInt("id")
 	user, _ := models.GetUserById(id)
 	self.Data["user"] = user
+	self.display()
+}
+
+func (self *UserController)ChangePwd(){
 	self.display()
 }
 
@@ -135,4 +141,31 @@ func (self *UserController)AjaxEdit(){
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	self.ToJson(MSG_OK, "用户【"+user.Username+"】已修改成功", nil)
+}
+
+func (self *UserController)AjaxChangePwd(){
+	old_pwd := self.GetString("old_pwd")
+	new_pwd := self.GetString("new_pwd")
+	con_pwd := self.GetString("con_pwd")
+	logs.Info(self.login_user)
+	logs.Info(self.login_userId)
+	user, _ := models.GetUserById(self.login_user.Id)
+	
+	old_pwd = util.Md5(old_pwd, false)
+	if old_pwd != user.Password{
+		self.ToJson(MSG_ERR, "旧密码不正确", nil)
+	}
+	if new_pwd != con_pwd{
+		self.ToJson(MSG_ERR, "两次输入的新密码不一致", nil)
+	}
+	user.Password = util.Md5(new_pwd, false)
+	err := user.Update()
+	if err != nil{
+		self.ToJson(MSG_ERR, err.Error(), nil)
+	}
+
+	self.login_user = user
+	authkey := util.Md5(self.GetClientIp() + "|" + user.Password, false)
+	self.Ctx.SetCookie("auth", strconv.Itoa(user.Id) + "|" + authkey, 7 * 86400)
+	self.ToJson(MSG_OK, "用户【"+user.Username+"】的密码已修改成功", nil)
 }

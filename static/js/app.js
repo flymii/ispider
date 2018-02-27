@@ -1,4 +1,50 @@
-/*------users.html start------*/
+/* --------layout start-------- */
+function change_pwd(){
+    var new_pwd = $('input[name=new_pwd]').val();
+    var old_pwd = $('input[name=old_pwd]').val();
+    var con_pwd = $('input[name=con_pwd]').val();
+    $.ajax({
+        url:'/admin/service/password_change',
+        dataType:'json',
+        type:'POST',
+        cache:false,
+        data:{new_pwd:new_pwd, old_pwd:old_pwd, con_pwd:con_pwd},
+        success:function(data){
+            if(data == null){
+                swal("修改失败", "服务器错误", "error");
+                return;
+            }
+            if (data.status != 0){
+                swal("修改失败", data.msg, "error");
+                return;
+            }
+            swal({title:"修改成功!",text: data.msg, type:"success" }, function(){
+                window.location.href = document.referrer
+            });
+        }
+    })
+}
+
+/* --------layout end-------- */
+
+
+/*------login start------*/
+function login_out(){
+    $.ajax({
+		url:"/admin/service/loginout",
+		dataType:"json",
+		type:"POST",
+		cache:false,
+		success:function(data){
+			if (data.status == 0){
+				window.location.href = "/admin/login";
+			}
+		},
+	})
+}
+/*------login end------*/
+
+/*------users start------*/
 function user_add(){
     swal({ 
             title: "Add New User", 
@@ -167,4 +213,4 @@ function user_disable(id){
         })
     });
 }
-/*------users.html end------*/
+/*------users end------*/
