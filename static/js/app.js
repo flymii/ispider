@@ -215,7 +215,7 @@ function user_disable(id){
 }
 /*------users end------*/
 
-/* -------myapps start------- */
+/* -------app start------- */
 function app_add(){
     var appname = $('input[name=appname]').val();
     var desc = $('input[name=desc]').val()
@@ -240,4 +240,140 @@ function app_add(){
         }
     })
 }
-/* -------myapps end------- */
+
+function app_delete(id){
+    swal({ 
+        title: "确定删除吗？", 
+        text: "你将无法恢复该应用！", 
+        type: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定删除！", 
+        closeOnConfirm: false
+    },
+    function(){
+        $.ajax({
+            url:'/admin/service/app_delete',
+            dataType:'json',
+            type:'POST',
+            cache:false,
+            data:{id:id},
+            success:function(data){
+                if(data == null){
+                    swal("删除失败", "服务器错误", "error");
+                    return;
+                }
+                if (data.status != 0){
+                    swal("删除失败", data.msg, "error");
+                    return;
+                }
+                swal({title:"删除成功!",text: data.msg, type:"success" }, function(){
+                    location.reload();
+                });
+            }
+        })
+    });
+}
+
+function app_apply(id){
+    swal({ 
+        title: "确定申请激活该应用吗？", 
+        text: "", 
+        type: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定申请！", 
+        closeOnConfirm: false
+    },
+    function(){
+        $.ajax({
+            url:'/admin/service/user_apply',
+            dataType:'json',
+            type:'POST',
+            cache:false,
+            data:{id:id},
+            success:function(data){
+                if(data == null){
+                    swal("申请失败", "服务器错误", "error");
+                    return;
+                }
+                if (data.status != 0){
+                    swal("申请失败", data.msg, "error");
+                    return;
+                }
+                swal({title:"申请成功!",text: data.msg, type:"success" }, function(){
+                    location.reload();
+                });
+            }
+        })
+    });
+}
+
+function app_pass(id){
+    swal({ 
+        title: "确定审核通过吗？", 
+        text: "", 
+        type: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定通过！", 
+        closeOnConfirm: false
+    },
+    function(){
+        $.ajax({
+            url:'/admin/service/app_pass',
+            dataType:'json',
+            type:'POST',
+            cache:false,
+            data:{id:id},
+            success:function(data){
+                if(data == null){
+                    swal("审核失败", "服务器错误", "error");
+                    return;
+                }
+                if (data.status != 0){
+                    swal("审核失败", data.msg, "error");
+                    return;
+                }
+                swal({title:"审核成功!",text: data.msg, type:"success" }, function(){
+                    location.reload();
+                });
+            }
+        })
+    });
+}
+
+function app_unpass(id){
+    swal({ 
+        title: "确定审核不通过吗？", 
+        text: "", 
+        type: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定不通过！", 
+        closeOnConfirm: false
+    },
+    function(){
+        $.ajax({
+            url:'/admin/service/app_unpass',
+            dataType:'json',
+            type:'POST',
+            cache:false,
+            data:{id:id},
+            success:function(data){
+                if(data == null){
+                    swal("审核失败", "服务器错误", "error");
+                    return;
+                }
+                if (data.status != 0){
+                    swal("审核失败", data.msg, "error");
+                    return;
+                }
+                swal({title:"审核成功!",text: data.msg, type:"success" }, function(){
+                    location.reload();
+                });
+            }
+        })
+    });
+}
+/* -------app end------- */

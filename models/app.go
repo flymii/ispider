@@ -16,6 +16,12 @@ type App struct{
 	CreatedAt time.Time
 }
 
+type AppDetail struct{
+	App
+	Username string
+	StatusDesc string
+}
+
 func (self *App)TableName()string{
 	return "app"
 }
