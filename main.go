@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	ilog.AppLog.Info("start")
+	ilog.Info("start")
 	go spider.Start()
 	beego.Run(":8089")
 }

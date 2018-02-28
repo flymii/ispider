@@ -40,30 +40,30 @@ func NewSpider(from string) (Spider, error){
 }
 
 func Start(){
-	ilog.AppLog.Info("service start")
+	ilog.Info("service start")
     c := cron.New()
 	spec := conf.AppConfig.GetString("task.spec")
-	ilog.AppLog.Info("spec: ",spec)
+	ilog.Info("spec: ",spec)
     c.AddFunc(spec,getBook)
 	c.Start()
     select{}
 }
 
 func getBook(){
-	ilog.AppLog.Info("spider start")
+	ilog.Info("spider start")
 	books, _ := models.GetBookList("status", 1)
 	for _, book := range books{
 		go func(book *models.Book){
 			s, err := NewSpider(book.From)
 			if err != nil{
-				ilog.AppLog.Error("new Spider error: ", err.Error())
+				ilog.Error("new Spider error: ", err.Error())
 				return
 			}
 			err = s.SpiderUrl(book.Url)
 			if err != nil{
-				ilog.AppLog.Error("new Document error: ", err.Error())
+				ilog.Error("new Document error: ", err.Error())
 			}
-			ilog.AppLog.Info(book.Name, "已爬取完毕")
+			ilog.Info(book.Name, "已爬取完毕")
 		}(book)
 	}
 }

@@ -63,7 +63,7 @@ func SpiderChapter(bookid int, chapter *SChapter, c chan struct{}){
 	if models.IsValidUrl(chapter.Url){
 		doc, err := goquery.NewDocument(chapter.Url)
 		if err != nil{
-			ilog.AppLog.Error("get chapter details error: ", err.Error())
+			ilog.Error("get chapter details error: ", err.Error())
 			return
 		}
 		content := doc.Find("#content").Text()
