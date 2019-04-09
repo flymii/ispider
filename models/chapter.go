@@ -15,6 +15,7 @@ type Chapter struct {
 	Next      int
 	CreatedAt time.Time
 	UpdatedAt time.Time
+	Url       string
 }
 
 func ChapterAdd(chapter *Chapter) (int64, error) {

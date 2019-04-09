@@ -21,20 +21,28 @@ func (self *BookTextSpider) SpiderUrl(url string) error {
 	}
 	bookname := common.GbkToUtf8(doc.Find("#info h1").Text())
 
+	ilog.Info("book url", url)
+
 	b, err := models.GetBookByName(bookname)
 	if err != nil || b == nil {
 		b := models.Book{Name: bookname, CreatedAt: time.Now(), UpdatedAt: time.Now()}
 		models.BookAdd(&b)
 	}
 	doc.Find("#list dd").Each(func(i int, contentSelection *goquery.Selection) {
-		if i < 9 {
+		if i < 0 {
 			return
 		}
-		pre := i - 9
-		next := i - 7
+		pre := i
+		next := i + 1
 		title := common.GbkToUtf8(contentSelection.Find("a").Text())
 		href, _ := contentSelection.Find("a").Attr("href")
-		chapter := SChapter{Title: title, Url: "http://www.booktxt.net" + href, Order: i - 8, Pre: pre, Next: next}
+
+		href = strings.Replace(href, "/", "", 1)
+
+		ch_url := book.Url + href
+		ilog.Info("chapter url " + ch_url)
+
+		chapter := SChapter{Title: title, Url: ch_url, Order: i, Pre: pre, Next: next}
 		book.Chapters = append(book.Chapters, &chapter)
 		u := models.Url{Url: chapter.Url}
 		models.UrlAdd(&u)
@@ -66,7 +74,7 @@ func SpiderChapter(bookid int, chapter *SChapter, c chan struct{}) {
 		content := doc.Find("#content").Text()
 		content = common.GbkToUtf8(content)
 		content = strings.Replace(content, "聽", " ", -1)
-		ch := models.Chapter{BookId: bookid, Title: chapter.Title, Content: content, Sort: chapter.Order, Pre: chapter.Pre, Next: chapter.Next, CreatedAt: time.Now(), UpdatedAt: time.Now()}
+		ch := models.Chapter{Url: chapter.Url, BookId: bookid, Title: chapter.Title, Content: content, Sort: chapter.Order, Pre: chapter.Pre, Next: chapter.Next, CreatedAt: time.Now(), UpdatedAt: time.Now()}
 		models.ChapterAdd(&ch)
 		models.SpideredUrl(chapter.Url)
 	}
