@@ -1,9 +1,9 @@
 package routers
 
-import(
+import (
 	"github.com/astaxie/beego"
-	"ispider/controllers/api"
 	"ispider/controllers/admin"
+	"ispider/controllers/api"
 )
 
 func init() {
@@ -20,33 +20,32 @@ func init() {
 	beego.AddNamespace(ns)
 
 	nsAdmin := beego.NewNamespace("/admin",
-		beego.NSRouter("/", &admin.IndexController{},"get:Index"),
-		beego.NSRouter("/login", &admin.LoginController{},"get:Login"),
-		beego.NSRouter("/users", &admin.UserController{},"get:Users"),
-		beego.NSRouter("/users/edit", &admin.UserController{},"get:Edit"),
-		beego.NSRouter("/users/changepwd", &admin.UserController{},"get:ChangePwd"),
+		beego.NSRouter("/", &admin.IndexController{}, "get:Index"),
+		beego.NSRouter("/login", &admin.LoginController{}, "get:Login"),
+		beego.NSRouter("/users", &admin.UserController{}, "get:Users"),
+		beego.NSRouter("/users/edit", &admin.UserController{}, "get:Edit"),
+		beego.NSRouter("/users/changepwd", &admin.UserController{}, "get:ChangePwd"),
 
-		beego.NSRouter("/apps", &admin.AppController{},"get:Apps"),
-		beego.NSRouter("/myapps", &admin.AppController{},"get:MyApps"),
-		beego.NSRouter("/app/add", &admin.AppController{},"get:Add"),
+		beego.NSRouter("/apps", &admin.AppController{}, "get:Apps"),
+		beego.NSRouter("/myapps", &admin.AppController{}, "get:MyApps"),
+		beego.NSRouter("/app/add", &admin.AppController{}, "get:Add"),
 
-		
 		beego.NSNamespace("/service",
-			beego.NSRouter("/login", &admin.LoginController{},"post:AjaxLogin"),
-			beego.NSRouter("/loginout", &admin.LoginController{},"post:AjaxLoginOut"),
-			
-			beego.NSRouter("/user_add", &admin.UserController{},"post:AjaxAdd"),
-			beego.NSRouter("/user_delete", &admin.UserController{},"post:AjaxDelete"),
-			beego.NSRouter("/user_enable", &admin.UserController{},"post:AjaxEnable"),
-			beego.NSRouter("/user_disable", &admin.UserController{},"post:AjaxDisable"),
-			beego.NSRouter("/user_edit", &admin.UserController{},"post:AjaxEdit"),
-			beego.NSRouter("/password_change", &admin.UserController{},"post:AjaxChangePwd"),
+			beego.NSRouter("/login", &admin.LoginController{}, "post:AjaxLogin"),
+			beego.NSRouter("/loginout", &admin.LoginController{}, "post:AjaxLoginOut"),
 
-			beego.NSRouter("/app_add", &admin.AppController{},"post:AjaxAdd"),
-			beego.NSRouter("/app_delete", &admin.AppController{},"post:AjaxDelete"),
-			beego.NSRouter("/app_pass", &admin.AppController{},"post:AjaxPass"),
-			beego.NSRouter("/app_unpass", &admin.AppController{},"post:AjaxUnPass"),
-			beego.NSRouter("/app_apply", &admin.AppController{},"post:AjaxApply"),
+			beego.NSRouter("/user_add", &admin.UserController{}, "post:AjaxAdd"),
+			beego.NSRouter("/user_delete", &admin.UserController{}, "post:AjaxDelete"),
+			beego.NSRouter("/user_enable", &admin.UserController{}, "post:AjaxEnable"),
+			beego.NSRouter("/user_disable", &admin.UserController{}, "post:AjaxDisable"),
+			beego.NSRouter("/user_edit", &admin.UserController{}, "post:AjaxEdit"),
+			beego.NSRouter("/password_change", &admin.UserController{}, "post:AjaxChangePwd"),
+
+			beego.NSRouter("/app_add", &admin.AppController{}, "post:AjaxAdd"),
+			beego.NSRouter("/app_delete", &admin.AppController{}, "post:AjaxDelete"),
+			beego.NSRouter("/app_pass", &admin.AppController{}, "post:AjaxPass"),
+			beego.NSRouter("/app_unpass", &admin.AppController{}, "post:AjaxUnPass"),
+			beego.NSRouter("/app_apply", &admin.AppController{}, "post:AjaxApply"),
 		),
 	)
 	beego.AddNamespace(nsAdmin)

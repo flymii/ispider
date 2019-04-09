@@ -1,4 +1,5 @@
 *.exe
 *.ext~
 *.log
+*.idea
 config/app.config

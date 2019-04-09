@@ -1,17 +1,16 @@
 package api
 
-import(
+import (
 	"ispider/controllers"
 )
 
 // json 返回错误码
 const (
-	MSG_OK  = 0   // 成功
-	MSG_ERR = -1  // 失败
+	MSG_OK  = 0  // 成功
+	MSG_ERR = -1 // 失败
 )
 
 // 基类
-type ApiController struct{
+type ApiController struct {
 	controllers.BaseController
 }
-

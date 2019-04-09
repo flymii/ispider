@@ -1,27 +1,27 @@
 package models
 
 import (
-	"time"
 	"github.com/astaxie/beego/orm"
+	"time"
 )
 
-type Chapter struct{
-	Id int
-	BookId int
-	Title string
-	Content string
-	Sort int
-	Pre int
-	Next int
+type Chapter struct {
+	Id        int
+	BookId    int
+	Title     string
+	Content   string
+	Sort      int
+	Pre       int
+	Next      int
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
-func ChapterAdd(chapter *Chapter)(int64, error){
+func ChapterAdd(chapter *Chapter) (int64, error) {
 	return orm.NewOrm().Insert(chapter)
 }
 
-func GetChapterPage(page, pageSize int, filters ...interface{})([]*Chapter, int64){
+func GetChapterPage(page, pageSize int, filters ...interface{}) ([]*Chapter, int64) {
 	offset := (page - 1) * pageSize
 	list := make([]*Chapter, 0)
 	query := orm.NewOrm().QueryTable("chapter")
@@ -36,10 +36,10 @@ func GetChapterPage(page, pageSize int, filters ...interface{})([]*Chapter, int6
 	return list, total
 }
 
-func GetChapterById(id int)(*Chapter, error){
+func GetChapterById(id int) (*Chapter, error) {
 	chapter := new(Chapter)
 	err := orm.NewOrm().QueryTable("chapter").Filter("id", id).One(chapter)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 	return chapter, nil

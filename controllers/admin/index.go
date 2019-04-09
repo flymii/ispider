@@ -1,9 +1,9 @@
 package admin
 
-type IndexController struct{
+type IndexController struct {
 	AdminController
 }
 
-func (self *IndexController) Index(){
+func (self *IndexController) Index() {
 	self.display()
 }

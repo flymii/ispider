@@ -1,11 +1,11 @@
 package controllers
 
-import(
-	"strings"
+import (
 	"github.com/astaxie/beego"
+	"strings"
 )
 
-type BaseController struct{
+type BaseController struct {
 	beego.Controller
 }
 
@@ -13,7 +13,7 @@ type BaseController struct{
 // msgno: 错误码
 // msg: 错误信息
 // data: 返回数据
-func (self *BaseController) ToJson (msgno int, msg string, data interface{}){
+func (self *BaseController) ToJson(msgno int, msg string, data interface{}) {
 	out := make(map[string]interface{})
 	out["status"] = msgno
 	out["msg"] = msg

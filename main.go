@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/Chain-Zhang/igo/ilog"
+	"github.com/astaxie/beego"
 	_ "ispider/routers"
 	"ispider/spider"
-	"github.com/astaxie/beego"
-	"github.com/Chain-Zhang/igo/ilog"
 )
 
 func main() {
@@ -12,5 +12,3 @@ func main() {
 	go spider.Start()
 	beego.Run(":8089")
 }
-
-

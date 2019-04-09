@@ -1,24 +1,24 @@
 package admin
 
-import(
-	"time"
-	"github.com/astaxie/beego/utils/pagination"
+import (
 	"github.com/Chain-Zhang/igo/util"
+	"github.com/astaxie/beego/utils/pagination"
 	"ispider/models"
+	"time"
 )
 
-type AppController struct{
+type AppController struct {
 	AdminController
 }
 
-func (self *AppController)Apps(){
+func (self *AppController) Apps() {
 	page, err := self.GetInt("p")
-	if err != nil{
+	if err != nil {
 		page = 1
 	}
 	apps, total := models.GetAppList(page, self.pageSize, "status__gte", 0)
 	appDetails := make([]*models.AppDetail, 0)
-	for _, app := range apps{
+	for _, app := range apps {
 		user, _ := models.GetUserById(app.UserId)
 		ad := new(models.AppDetail)
 		ad.Username = user.Username
@@ -34,9 +34,9 @@ func (self *AppController)Apps(){
 	}
 	self.Data["apps"] = appDetails
 	self.Data["total"] = total
-	if total < 1{
+	if total < 1 {
 		self.Data["hasdata"] = false
-	}else{
+	} else {
 		self.Data["hasdata"] = true
 	}
 
@@ -46,17 +46,17 @@ func (self *AppController)Apps(){
 	self.display()
 }
 
-func (self *AppController) MyApps(){
+func (self *AppController) MyApps() {
 	page, err := self.GetInt("p")
-	if err != nil{
+	if err != nil {
 		page = 1
 	}
 	apps, total := models.GetAppList(page, self.pageSize, "status__gte", 0, "user_id", self.login_userId)
 	self.Data["apps"] = apps
 	self.Data["total"] = total
-	if total < 1{
+	if total < 1 {
 		self.Data["hasdata"] = false
-	}else{
+	} else {
 		self.Data["hasdata"] = true
 	}
 
@@ -65,11 +65,11 @@ func (self *AppController) MyApps(){
 	self.display()
 }
 
-func (self *AppController)Add(){
+func (self *AppController) Add() {
 	self.display()
 }
 
-func (self *AppController)AjaxAdd(){
+func (self *AppController) AjaxAdd() {
 	appname := self.GetString("appname")
 	desc := self.GetString("desc")
 
@@ -79,79 +79,79 @@ func (self *AppController)AjaxAdd(){
 	app.Count = 1000
 	app.CreatedAt = time.Now()
 	app.Status = 0
-	app.Token = util.Md5(appname + app.CreatedAt.String(), false)
+	app.Token = util.Md5(appname+app.CreatedAt.String(), false)
 	app.UserId = self.login_userId
 
 	_, err := models.AppAdd(app)
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	self.ToJson(MSG_OK, "新增应用成功", nil)
 }
 
-func (self *AppController)AjaxPass(){
+func (self *AppController) AjaxPass() {
 	id, err := self.GetInt("id")
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	app, err := models.GetAppById(id)
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	app.Status = 1
 	err = app.Update()
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	self.ToJson(MSG_OK, "应用【"+app.Appname+"】已审核通过", nil)
 }
 
-func (self *AppController)AjaxUnPass(){
+func (self *AppController) AjaxUnPass() {
 	id, err := self.GetInt("id")
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	app, err := models.GetAppById(id)
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	app.Status = 2
 	err = app.Update()
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	self.ToJson(MSG_OK, "应用【"+app.Appname+"】审核不通过", nil)
 }
 
-func (self *AppController)AjaxDelete(){
+func (self *AppController) AjaxDelete() {
 	id, err := self.GetInt("id")
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	app, err := models.GetAppById(id)
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	app.Status = -1
 	err = app.Update()
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	self.ToJson(MSG_OK, "应用【"+app.Appname+"】已删除成功", nil)
 }
 
-func (self *AppController)AjaxApply(){
+func (self *AppController) AjaxApply() {
 	id, err := self.GetInt("id")
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	app, err := models.GetAppById(id)
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	app.Status = 0
 	err = app.Update()
-	if err != nil{
+	if err != nil {
 		self.ToJson(MSG_ERR, err.Error(), nil)
 	}
 	self.ToJson(MSG_OK, "应用【"+app.Appname+"】已申请成功，等待审核", nil)
